@@ -3,10 +3,10 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 class sentiment:
 
 
+
 	def __init__(self):
 
 		self.intensityAnalyzer = SentimentIntensityAnalyzer() #Instantiation 
-
 
 
 	def calculateVariedSentiment(self, sentence):
@@ -17,11 +17,14 @@ class sentiment:
 
 
 
-	def getCompoundedSentiment(self, sentence):
-
-		return self.calculateVariedSentiment(sentence)
+	def getCompoundedSentiment(self, sentenceList):
 
 
+		scores = []
+		for sentence in sentenceList:
+			scores.append(self.calculateVariedSentiment(sentence)['compound'])
+			
+		return sum(scores) / len(scores)
 
 	
 

@@ -20,6 +20,6 @@ article = cleanhtml(str(temp.find_all(class_="article-pharagraph")))
 
 x = sentiment()
 
-print(x.getCompoundedSentiment(article[0]))
+print(x.getCompoundedSentiment(article))
 
 
