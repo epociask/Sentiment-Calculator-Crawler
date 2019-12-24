@@ -1,7 +1,5 @@
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
-
-
 class sentiment:
 
 
@@ -11,7 +9,7 @@ class sentiment:
 
 
 
-	def calculateVariedSentiment(sentence):
+	def calculateVariedSentiment(self, sentence):
 
 		#returns collection of polarity scores for given sentence
 		return self.intensityAnalyzer.polarity_scores(sentence)
@@ -19,9 +17,9 @@ class sentiment:
 
 
 
-	def getCompoundedSentiment(sentence):
+	def getCompoundedSentiment(self, sentence):
 
-		return calculateVariedSentiment(sentence)
+		return self.calculateVariedSentiment(sentence)
 
 
 

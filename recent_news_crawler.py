@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup as bs
+from collections import OrderedDict		
 import requests
-
+import re
 
 
 #Web crawler for google news tab in search for most recent articles 
@@ -10,7 +11,9 @@ class recent_news_crawler:
 
 	def __init__(self):
 		self.links = []
-		self.htmls = []
+		self.html_pages = []
+
+
 	def parseSearchQueryLinks(self, searchQ, month, fromDay, ToDay, year):
 
 
@@ -23,10 +26,12 @@ class recent_news_crawler:
 
 		for line in tempArr:
 			#parses line 
-			if(line.find("a href=") != -1 and line.find('google') == -1):
+			if line.find("a href=") != -1 and line.find('google') == -1:
 				line = line[15 : len(line)-2]
 				self.links.append(line)
 
+
+		self.links = list(OrderedDict.fromkeys(self.links))	#Eliminates duplicates
 	
 		
 
@@ -36,11 +41,10 @@ class recent_news_crawler:
 		print(len(self.links))
 
 		for link in self.links:
-
 			try:
 				page = requests.get(link)
 				soup = bs(page.content, 'html.parser')
-				self.htmls.append(soup)
+				self.html_pages.append(soup)
 				
 		
 			except Exception:
@@ -50,9 +54,13 @@ class recent_news_crawler:
 
 		count = 0 
 		for link in self.links:
-			#if(link.find("coindesk") != -1):
-			print(link)
-			++count
+			if link.find("coindesk") != -1 :
+				print(self.html_pages[count].p['class ={"text"'])
+		
+			elif link.find("bitcoinist") != -1 :
+				print(link)
+
+			++count		
 
 
 temp = recent_news_crawler()
